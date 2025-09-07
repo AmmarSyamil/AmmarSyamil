@@ -2,23 +2,39 @@ name: Update README
 
 on:
   schedule:
-    - cron: "0 0 * * *" 
+    - cron: "0 0 * * *"
   workflow_dispatch:
 
 jobs:
-  build:
+  update-readme:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repo
+        uses: actions/checkout@v3
 
-      - name: Run markscribe
-        uses: markscribe/markscribe-action@v1
+      - name: Setup Go
+        uses: actions/setup-go@v4
         with:
-          template: README.md.tpl
-          output: README.md
+          go-version: "1.20"
+
+      - name: Install markscribe CLI
+        run: |
+          go install github.com/markscribe/markscribe@latest
+          echo "$HOME/go/bin" >> $GITHUB_PATH
+
+      - name: Run markscribe (generate README)
         env:
           WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
+        run: |
+          ls -la
+          echo "Template preview:"
+          sed -n '1,200p' README.md.tpl || true
+          markscribe -template README.md.tpl -out README.md
+          echo "Generated README preview:"
+          sed -n '1,200p' README.md || true
 
-      - uses: stefanzweifel/git-auto-commit-action@v4
+      - name: Commit & push README
+        uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: "update README"
+          commit_message: "chore: update README"
+          file_pattern: README.md

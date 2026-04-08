@@ -8,7 +8,7 @@ I use CachyOS with modified [Caelestia](https://github.com/caelestia-dots/caeles
 Currently, I participate in one of the biggest youth organization, Hack Club (DM me in slack @SP).
 
 ## What I work on
-- Currently, I'm the active contributor for [anifetch](https://github.com/Notenlish/anifetch) and maintainer for its [AUR](https://aur.archlinux.org/packages/anifetch-cli) packages.
+- Currently, I'm the active contributor for [Anifetch](https://github.com/Notenlish/anifetch) and maintainer for its [AUR](https://aur.archlinux.org/packages/anifetch-cli) packages.
 
 ## Tools I use
 Python • C++ • JavaScript • Qt • PyTorch
